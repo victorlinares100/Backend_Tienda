@@ -36,4 +36,8 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "codigo_rol")
     private Rol rol;
+
+    @ManyToOne
+    @JoinColumn(name = "comuna_id")
+    private Comuna comuna;
 }
