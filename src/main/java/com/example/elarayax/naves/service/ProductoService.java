@@ -1,0 +1,32 @@
+package com.example.elarayax.naves.service;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.example.elarayax.naves.model.Producto;
+import com.example.elarayax.naves.repository.ProductoRepository;
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+public class ProductoService {
+
+    @Autowired
+    private ProductoRepository productoRepository;
+
+    public List<Producto> findAll() {
+        return productoRepository.findAll();
+    }
+
+    public Producto findById(Integer id) {
+        return productoRepository.findById(id).orElse(null);
+    }
+
+    public Producto save(Producto producto) {
+        return productoRepository.save(producto);
+    }
+
+    public void delete(Integer id) {
+        productoRepository.deleteById(id);
+    }
+}
