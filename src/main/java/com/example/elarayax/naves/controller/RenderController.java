@@ -1,20 +1,19 @@
 
+package com.example.elarayax.naves.controller;
 
-// package com.example.elarayax.naves.controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RestController;
-
-// @RestController
-// @RequestMapping("/api")
-// public class RenderController {
+@RestController
+@RequestMapping("/api")
+public class RenderController {
 
 
-//     @GetMapping("/health")
-//     public ResponseEntity<String> health() {
-//     return ResponseEntity.ok("OK");
-// }
+    @GetMapping("/health")
+    public ResponseEntity<String> health() {
+    return ResponseEntity.ok("OK");
+}
     
-// }
+}
