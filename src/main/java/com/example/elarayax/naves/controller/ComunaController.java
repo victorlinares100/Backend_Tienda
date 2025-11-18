@@ -14,7 +14,7 @@ import com.example.elarayax.naves.service.ComunaService;
 import com.example.elarayax.naves.model.Comuna;
 
 @RestController
-@RequestMapping("/api/Comuna")
+@RequestMapping("/api/comunas")
 public class ComunaController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class ComunaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Comuna> getRegionById(@PathVariable Integer id) {
+    public ResponseEntity<Comuna> getRegionById(@PathVariable Long id) {
         Comuna comuna = comunaService.findById(id);
         if (comuna == null) {
             return ResponseEntity.notFound().build();

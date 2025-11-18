@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.elarayax.naves.model.Imagen;
 
 @Repository
-public interface ImagenRepository extends JpaRepository<Imagen, Integer>{
+public interface ImagenRepository extends JpaRepository<Imagen, Long>{
 
 }

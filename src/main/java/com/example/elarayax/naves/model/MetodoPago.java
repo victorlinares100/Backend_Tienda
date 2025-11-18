@@ -14,13 +14,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "roles")
-public class Rol {
+@Table(name = "metodos_pago")
+public class MetodoPago {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "nombreRol", length = 30, nullable = false)
-    private String nombre;
+	@Column(name = "nombre_metodo", length = 100, nullable = false)
+	private String nombreMetodo;
+
+	@Column(name = "descripcion", length = 255)
+	private String descripcion;
+
+	@Column(name = "comision", length = 10, nullable = false)
+	private Double comision;
+
 }

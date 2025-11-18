@@ -22,7 +22,7 @@ public class EstadoService {
     }
 
     @SuppressWarnings("null")
-    public Estado findById(Integer id) {
+    public Estado findById(Long id) {
         return estadoRepository.findById(id).orElse(null);
     }
 

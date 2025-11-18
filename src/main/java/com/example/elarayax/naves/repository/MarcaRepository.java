@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.elarayax.naves.model.Marca;
 
 @Repository
-public interface MarcaRepository extends JpaRepository<Marca, Integer> {
+public interface MarcaRepository extends JpaRepository<Marca, Long> {
 
 }

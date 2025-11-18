@@ -23,7 +23,7 @@ public class MarcaService {
     }
 
     @SuppressWarnings("null")
-    public Marca findById(Integer id) {
+    public Marca findById(Long id) {
         return marcaRepository.findById(id).orElse(null);
     }
 

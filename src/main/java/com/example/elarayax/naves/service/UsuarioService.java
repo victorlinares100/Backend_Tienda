@@ -28,7 +28,7 @@ public class UsuarioService {
         return usuarios;
     }
 
-    public Usuario findById(Integer id) {
+    public Usuario findById(Long id) {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
         if (usuario != null) {
             usuario.setContrasena(null);
@@ -56,7 +56,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         usuarioRepository.deleteById(id);
     }
 

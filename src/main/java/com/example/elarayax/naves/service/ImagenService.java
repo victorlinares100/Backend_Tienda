@@ -21,7 +21,7 @@ public class ImagenService {
     }
 
     @SuppressWarnings("null")
-    public Imagen findById(Integer id) {
+    public Imagen findById(Long id) {
         return imagenRepository.findById(id).orElse(null);
     }
 

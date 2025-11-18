@@ -22,7 +22,7 @@ public class CategoriaService {
     }
 
     @SuppressWarnings("null")
-    public Categoria findById(Integer id) {
+    public Categoria findById(Long id) {
         return categoriaRepository.findById(id).orElse(null);
     }
 

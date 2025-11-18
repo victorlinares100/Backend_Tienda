@@ -8,6 +8,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -23,7 +24,7 @@ public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "delivery_id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "fecha_entrega_estimada", nullable = false)
     private LocalDate fechaEntregaEstimada;
@@ -31,4 +32,8 @@ public class Delivery {
     @ManyToOne
     @JoinColumn(name = "estado_id", nullable = false)
     private Estado estado;
+
+    @OneToOne
+    @JoinColumn(name = "envio_id", nullable = false)
+    private Envio envio;
 }

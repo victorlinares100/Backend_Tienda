@@ -31,7 +31,7 @@ public class MarcaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Marca> getMarcaById(@PathVariable Integer id) {
+    public ResponseEntity<Marca> getMarcaById(@PathVariable Long id) {
         Marca marca = marcaService.findById(id);
         if (marca == null) {
             return ResponseEntity.notFound().build();

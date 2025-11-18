@@ -30,7 +30,7 @@ public class TallaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Talla> getTallaById(@PathVariable Integer id) {
+    public ResponseEntity<Talla> getTallaById(@PathVariable Long id) {
         Talla talla = tallaService.findById(id);
         if (talla == null) {
             return ResponseEntity.notFound().build();

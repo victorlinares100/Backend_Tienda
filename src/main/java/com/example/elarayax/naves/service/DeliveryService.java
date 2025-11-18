@@ -18,7 +18,7 @@ public class DeliveryService {
         return deliveryRepository.findAll();
     }
 
-    public Delivery findById(Integer id) {
+    public Delivery findById(Long id) {
         return deliveryRepository.findById(id).orElse(null);
     }
 
@@ -26,7 +26,7 @@ public class DeliveryService {
         return deliveryRepository.save(delivery);
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         deliveryRepository.deleteById(id);
     }
 }

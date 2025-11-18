@@ -31,7 +31,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Categoria> getCategoriaById(@PathVariable Integer id) {
+    public ResponseEntity<Categoria> getCategoriaById(@PathVariable Long id) {
         Categoria categoria = categoriaService.findById(id);
         if (categoria == null) {
             return ResponseEntity.notFound().build();

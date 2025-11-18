@@ -33,7 +33,7 @@ public class DeliveryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Delivery> getDeliveryById(@PathVariable Integer id) {
+    public ResponseEntity<Delivery> getDeliveryById(@PathVariable Long id) {
         Delivery delivery = deliveryService.findById(id);
         if (delivery == null) {
             return ResponseEntity.notFound().build();
@@ -48,7 +48,7 @@ public class DeliveryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDelivery(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteDelivery(@PathVariable Long id) {
         deliveryService.delete(id);
         return ResponseEntity.noContent().build();
     }

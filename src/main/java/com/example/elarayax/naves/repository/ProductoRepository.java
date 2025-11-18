@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import com.example.elarayax.naves.model.Producto;
 
 @Repository
-public interface ProductoRepository extends JpaRepository<Producto, Integer> {
+public interface ProductoRepository extends JpaRepository<Producto, Long> {
 }

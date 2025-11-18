@@ -21,7 +21,7 @@ public class TallaService {
     }
 
     @SuppressWarnings("null")
-    public Talla findById(Integer id) {
+    public Talla findById(Long id) {
         return tallaRepository.findById(id).orElse(null);
     }
 

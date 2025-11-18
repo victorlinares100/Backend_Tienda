@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class Marca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "nombreMarca", length = 200, nullable = false)
     private String nombreMarca;

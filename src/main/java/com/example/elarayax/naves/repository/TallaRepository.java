@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.elarayax.naves.model.Talla;
 
 @Repository
-public interface TallaRepository extends JpaRepository<Talla, Integer>{
+public interface TallaRepository extends JpaRepository<Talla, Long>{
 
 }

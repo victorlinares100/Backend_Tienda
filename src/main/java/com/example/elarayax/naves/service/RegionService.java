@@ -21,7 +21,7 @@ public class RegionService {
     }
 
     @SuppressWarnings("null")
-    public Region findById(Integer id) {
+    public Region findById(Long id) {
         return regionRepository.findById(id).orElse(null);
     }
 

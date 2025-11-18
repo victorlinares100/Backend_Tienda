@@ -31,7 +31,7 @@ public class RolController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Rol> getRolById(@PathVariable Integer id) {
+    public ResponseEntity<Rol> getRolById(@PathVariable Long id) {
         Rol rol = rolService.findById(id);
         if (rol == null) {
             return ResponseEntity.notFound().build();

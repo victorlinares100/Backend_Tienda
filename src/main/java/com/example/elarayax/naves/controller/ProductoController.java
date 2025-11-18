@@ -31,7 +31,7 @@ public class ProductoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Producto> getProductoById(@PathVariable Integer id) {
+    public ResponseEntity<Producto> getProductoById(@PathVariable Long id) {
         Producto producto = productoService.findById(id);
         if (producto == null) {
             return ResponseEntity.notFound().build();
@@ -46,7 +46,7 @@ public class ProductoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProducto(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteProducto(@PathVariable Long id) {
         productoService.delete(id);
         return ResponseEntity.noContent().build();
     }

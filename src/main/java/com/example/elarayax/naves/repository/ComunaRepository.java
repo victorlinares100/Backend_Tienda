@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.elarayax.naves.model.Comuna;
 @Repository
-public interface ComunaRepository extends JpaRepository<Comuna, Integer> {
+public interface ComunaRepository extends JpaRepository<Comuna, Long> {
 
 
 }

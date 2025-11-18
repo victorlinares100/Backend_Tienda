@@ -22,7 +22,7 @@ public class RolService {
     }
 
     @SuppressWarnings("null")
-    public Rol findById(Integer id) {
+    public Rol findById(Long id) {
         return rolRepository.findById(id).orElse(null);
     }
 

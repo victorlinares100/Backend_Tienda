@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.elarayax.naves.model.Estado;
 @Repository
-public interface EstadoRepository extends JpaRepository<Estado, Integer>{
+public interface EstadoRepository extends JpaRepository<Estado, Long>{
 
 }

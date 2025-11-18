@@ -31,7 +31,7 @@ public class RegionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Region> getRegionById(@PathVariable Integer id) {
+    public ResponseEntity<Region> getRegionById(@PathVariable Long id) {
         Region region = regionService.findById(id);
         if (region == null) {
             return ResponseEntity.notFound().build();

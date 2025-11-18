@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import com.example.elarayax.naves.model.Delivery;
 
 @Repository
-public interface DeliveryRepository extends JpaRepository<Delivery, Integer> {
+public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
 }

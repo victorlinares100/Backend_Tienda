@@ -31,7 +31,7 @@ public class EstadoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Estado> getEstadoById(@PathVariable Integer id) {
+    public ResponseEntity<Estado> getEstadoById(@PathVariable Long id) {
         Estado estado = estadoService.findById(id);
         if (estado == null) {
             return ResponseEntity.notFound().build();

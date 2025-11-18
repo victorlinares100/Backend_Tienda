@@ -22,7 +22,7 @@ public class ComunaService {
     }
 
     @SuppressWarnings("null")
-    public Comuna findById(Integer id) {
+    public Comuna findById(Long id) {
         return comunaRepository.findById(id).orElse(null);
     }
 

@@ -29,7 +29,7 @@ public class ImagenController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Imagen> getImagenById(@PathVariable Integer id) {
+    public ResponseEntity<Imagen> getImagenById(@PathVariable Long id) {
         Imagen imagen = imagenService.findById(id);
         if (imagen == null) {
             return ResponseEntity.notFound().build();
