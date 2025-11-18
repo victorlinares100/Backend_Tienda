@@ -46,6 +46,7 @@ public class Comprobante {
 
     @OneToOne(mappedBy = "comprobante", cascade = CascadeType.ALL)
     private Envio envio; 
+
 }
 
     
