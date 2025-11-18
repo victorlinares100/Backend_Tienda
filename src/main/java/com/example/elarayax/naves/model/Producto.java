@@ -8,6 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.FetchType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -50,4 +53,8 @@ public class Producto {
     @ManyToOne
     @JoinColumn(name = "imagen_id", nullable = false)
     private Imagen imagen;
+
+    @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("producto")
+    private List<DetalleComprobante> detalleComprobantes = new ArrayList<>();
 }
