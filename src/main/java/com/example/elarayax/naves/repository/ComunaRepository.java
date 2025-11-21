@@ -8,5 +8,7 @@ import com.example.elarayax.naves.model.Comuna;
 @Repository
 public interface ComunaRepository extends JpaRepository<Comuna, Long> {
 
+    Comuna findByNombre(String nombre);
+
 
 }

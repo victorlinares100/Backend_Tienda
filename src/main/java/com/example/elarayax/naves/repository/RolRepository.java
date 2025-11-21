@@ -7,5 +7,5 @@ import com.example.elarayax.naves.model.Rol;
 
 @Repository
 public interface RolRepository extends JpaRepository<Rol, Long> {
-
+    Rol findByNombre(String nombre);
 }

@@ -13,9 +13,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI(){
         return new OpenAPI().info(
             new Info()
-            .title("API demo")
-            .version("0.1")
-            .description("API TIENDA ONLINE ")
+            .title("API TIENDA ONLINE AUREA")
+            .version("0.5.1")
+            .description("API TIENDA ONLINE RESTFUL con Spring Boot AUREA")
         );
     }
 

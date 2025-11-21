@@ -33,11 +33,12 @@ public class Usuario {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String contrasena;
 
-    @ManyToOne
-    @JoinColumn(name = "codigo_rol")
-    private Rol rol;
+    @Column(name = "rol") // Opcional: @Column es por si quieres cambiarle el nombre en la BD
+    private String rol;
 
-    @ManyToOne
-    @JoinColumn(name = "comuna_id")
-    private Comuna comuna;
+    @Column(name = "region")
+    private String region;
+
+    @Column(name = "comuna")
+    private String comuna;
 }
