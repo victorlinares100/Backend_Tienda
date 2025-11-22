@@ -1,19 +1,21 @@
 package com.example.elarayax.naves.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.elarayax.naves.model.Imagen;
-import com.example.elarayax.naves.dto.ProductoDTO;
+
 import com.example.elarayax.naves.model.Categoria;
 import com.example.elarayax.naves.model.Marca;
 import com.example.elarayax.naves.model.Producto;
 import com.example.elarayax.naves.model.Talla;
+import com.example.elarayax.naves.model.Imagen;
+import com.example.elarayax.naves.dto.ProductoDTO;
 import com.example.elarayax.naves.repository.CategoriaRepository;
-import com.example.elarayax.naves.repository.ImagenRepository;
 import com.example.elarayax.naves.repository.MarcaRepository;
 import com.example.elarayax.naves.repository.ProductoRepository;
 import com.example.elarayax.naves.repository.TallaRepository;
+import com.example.elarayax.naves.repository.ImagenRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -48,14 +50,14 @@ public class ProductoService {
         productoRepository.deleteById(id);
     }
 
-    // 🔹 Crear desde DTO
+    // Crear desde DTO con IDs
     public Producto createFromDTO(ProductoDTO dto) {
         Producto p = new Producto();
         applyDTOtoProducto(p, dto);
         return productoRepository.save(p);
     }
 
-    // 🔹 Actualizar desde DTO
+    // Actualizar desde DTO con IDs
     public Producto updateFromDTO(Long id, ProductoDTO dto) {
         Producto p = productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
@@ -63,33 +65,34 @@ public class ProductoService {
         return productoRepository.save(p);
     }
 
-    // 🔹 Aplicar DTO a la entidad
     private void applyDTOtoProducto(Producto p, ProductoDTO dto) {
-        if (dto.getNombreProducto() != null)
-            p.setNombreProducto(dto.getNombreProducto());
-        if (dto.getPrecioProducto() != null)
-            p.setPrecioProducto(dto.getPrecioProducto());
-        if (dto.getStock() != null)
-            p.setStock(dto.getStock());
+        if (dto.getNombreProducto() != null) p.setNombreProducto(dto.getNombreProducto());
+        if (dto.getPrecioProducto() != null) p.setPrecioProducto(dto.getPrecioProducto());
+        if (dto.getStock() != null) p.setStock(dto.getStock());
 
-        if (dto.getCategoria() != null) {
-            Categoria c = categoriaRepository.findByTipoCategoria(dto.getCategoria());
+        // Asignar entidades existentes por ID
+        if (dto.getCategoriaId() != null) {
+            Categoria c = categoriaRepository.findById(dto.getCategoriaId())
+                    .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
             p.setCategoria(c);
         }
-        if (dto.getMarca() != null) {
-            Marca m = marcaRepository.findByNombreMarca(dto.getMarca());
+
+        if (dto.getMarcaId() != null) {
+            Marca m = marcaRepository.findById(dto.getMarcaId())
+                    .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
             p.setMarca(m);
         }
-        if (dto.getTalla() != null) {
-            Talla t = tallaRepository.findByTipoTalla(dto.getTalla());
+
+        if (dto.getTallaId() != null) {
+            Talla t = tallaRepository.findById(dto.getTallaId())
+                    .orElseThrow(() -> new RuntimeException("Talla no encontrada"));
             p.setTalla(t);
         }
-        if (dto.getImagenUrl() != null) {
-            Imagen img = new Imagen();
-            img.setUrl(dto.getImagenUrl());
-            imagenRepository.save(img);
+
+        if (dto.getImagenId() != null) {
+            Imagen img = imagenRepository.findById(dto.getImagenId())
+                    .orElseThrow(() -> new RuntimeException("Imagen no encontrada"));
             p.setImagen(img);
         }
     }
 }
-

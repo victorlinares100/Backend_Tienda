@@ -7,8 +7,9 @@ public class ProductoDTO {
     private String nombreProducto;
     private Double precioProducto;
     private Integer stock;
-    private String categoria;
-    private String marca;
-    private String talla;
-    private String imagenUrl;
+    private Long categoriaId;
+    private Long marcaId;
+    private Long tallaId;
+    private Long imagenId;
 }
+
