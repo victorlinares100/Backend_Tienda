@@ -46,7 +46,9 @@ public class Producto {
     @JoinColumn(name = "talla_id", nullable = false)
     private Talla talla;
 
-    @Column(name = "imagen_url", length = 300, nullable = false)
-    private String imagenUrl;
+    @ManyToOne
+    @JoinColumn(name = "imagen_id", nullable = false)
+    private Imagen imagen;
+
 }
 
