@@ -81,7 +81,7 @@ public class ProductoService {
             p.setMarca(m);
         }
         if (dto.getTalla() != null) {
-            Talla t = tallaRepository.findByNombreTalla(dto.getTalla());
+            Talla t = tallaRepository.findByTipoTalla(dto.getTalla());
             p.setTalla(t);
         }
         if (dto.getImagenUrl() != null) {
