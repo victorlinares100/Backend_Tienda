@@ -21,6 +21,6 @@ public class Talla {
     private Long id;
 
     @Column(name = "tipoTalla", length = 6, nullable = false)
-    private String url;
+    private String tipoTalla;
 
 }
