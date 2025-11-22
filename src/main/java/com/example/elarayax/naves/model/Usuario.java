@@ -45,7 +45,7 @@ public class Usuario {
     private String comuna;
 
     @ManyToOne
-    @JoinColumn(name = "imagen_id", nullable = false)
+    @JoinColumn(name = "imagen_id")
     private Imagen imagen;
 
 }
