@@ -7,14 +7,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "usuarios")
 public class Usuario {
 
     @Id
@@ -24,7 +28,7 @@ public class Usuario {
     @Column(name = "nombreUsuario", length = 50, nullable = false)
     private String nombre;
 
-    @Column(name = "correoUsuario", length = 50, nullable = false)
+    @Column(name = "correoUsuario", length = 50, nullable = false, unique = true)
     private String correo;
 
     @Column(name = "contrasenaUsuario", length = 100, nullable = false)
