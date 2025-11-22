@@ -26,6 +26,22 @@ public class ProductoService {
         return productoRepository.save(producto);
     }
 
+    public Producto update(Long id, Producto updated) {
+        Producto producto = findById(id);
+
+        if (producto == null) return null;
+
+        producto.setNombreProducto(updated.getNombreProducto());
+        producto.setPrecioProducto(updated.getPrecioProducto());
+        producto.setStock(updated.getStock());
+        producto.setCategoria(updated.getCategoria());
+        producto.setMarca(updated.getMarca());
+        producto.setTalla(updated.getTalla());
+        producto.setImagenUrl(updated.getImagenUrl());
+
+        return productoRepository.save(producto);
+    }
+
     public void delete(Long id) {
         productoRepository.deleteById(id);
     }
