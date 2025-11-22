@@ -25,16 +25,23 @@ public class AuthController {
     public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
 
         // Verifica si el correo ya está en uso, si lo está lanza un error
-        if (usuarioRepository.findByCorreo(usuario.getCorreo()) != null) {
-            return ResponseEntity.badRequest().body("Error El correo ya está en uso.");
+        if (usuarioRepository.existsByCorreo(usuario.getCorreo().trim())) {
+            return ResponseEntity.badRequest().body("El correo ya está en uso.");
         }
         //Esto encripta la contraseña antes de guardarla
         usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
         // Asignar el rol "Cliente" al cualquier nuevo usuario por default
         usuario.setRol("Cliente");
-        // Guardar el usuario en la base de datos
-        usuarioRepository.save(usuario);
-        return ResponseEntity.ok("Usuario registrado exitosamente");
+        // Asegurar que el correo se guarde sin espacios
+        usuario.setCorreo(usuario.getCorreo().trim());
+        
+        try {
+            // Guardar el usuario en la base de datos
+            usuarioRepository.save(usuario);
+            return ResponseEntity.ok("Usuario registrado exitosamente");
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest().body("El correo ya está en uso.");
+        }
     }
 
     @PostMapping("/login")
@@ -42,7 +49,7 @@ public class AuthController {
         Usuario usuario = usuarioRepository.findByCorreo(request.getCorreo());
 
         if (usuario == null || !passwordEncoder.matches(request.getContrasena(), usuario.getContrasena())) {
-            return ResponseEntity.status(401).body("Error: Credenciales inválidas");    
+            return ResponseEntity.status(401).body("Credenciales inválidas");    
         }
         return ResponseEntity.ok(usuario);
     }

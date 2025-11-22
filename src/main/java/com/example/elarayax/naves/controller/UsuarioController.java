@@ -58,10 +58,14 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<?> createUsuario(@RequestBody Usuario usuario) {
         usuario.setId(null);
-        Usuario usuarioNew = usuarioService.save(usuario);
-        return ResponseEntity.status(201).body(usuarioNew);
+        try {
+            Usuario usuarioNew = usuarioService.save(usuario);
+            return ResponseEntity.status(201).body(usuarioNew);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest().body("Error: El correo ya está en uso.");
+        }
     }
 
     @PutMapping("/{id}")
