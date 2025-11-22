@@ -44,8 +44,4 @@ public class Usuario {
     @Column(name = "comuna")
     private String comuna;
 
-    @ManyToOne
-    @JoinColumn(name = "imagen_id")
-    private Imagen imagen;
-
 }
