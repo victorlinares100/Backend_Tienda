@@ -5,5 +5,5 @@ import com.example.elarayax.naves.model.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
-    Categoria findByNombreCategoria(String nombre);
+    Categoria findByTipoCategoria(String nombre);
 }

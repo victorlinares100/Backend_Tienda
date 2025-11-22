@@ -73,7 +73,7 @@ public class ProductoService {
             p.setStock(dto.getStock());
 
         if (dto.getCategoria() != null) {
-            Categoria c = categoriaRepository.findByNombreCategoria(dto.getCategoria());
+            Categoria c = categoriaRepository.findByTipoCategoria(dto.getCategoria());
             p.setCategoria(c);
         }
         if (dto.getMarca() != null) {
