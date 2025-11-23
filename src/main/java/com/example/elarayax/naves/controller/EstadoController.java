@@ -17,7 +17,7 @@ import com.example.elarayax.naves.service.EstadoService;
 import com.example.elarayax.naves.model.Estado;
 
 @RestController
-@RequestMapping("/api/estados")
+@RequestMapping("/api/v1/estados")
 
 
 public class EstadoController {

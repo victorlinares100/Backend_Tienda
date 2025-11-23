@@ -18,7 +18,7 @@ import com.example.elarayax.naves.service.CategoriaService;
 import com.example.elarayax.naves.model.Categoria;
 
 @RestController
-@RequestMapping("/api/categorias")
+@RequestMapping("/api/v1/categorias")
 
 public class CategoriaController {
     @Autowired

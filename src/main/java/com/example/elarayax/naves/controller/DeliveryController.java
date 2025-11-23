@@ -19,7 +19,7 @@ import com.example.elarayax.naves.model.Delivery;
 import com.example.elarayax.naves.service.DeliveryService;
 
 @RestController
-@RequestMapping("/api/delivery")
+@RequestMapping("/api/v1/delivery")
 public class DeliveryController {
 
     @Autowired

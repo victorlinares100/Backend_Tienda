@@ -19,7 +19,7 @@ import com.example.elarayax.naves.model.Producto;
 import com.example.elarayax.naves.service.ProductoService;
 
 @RestController
-@RequestMapping("/api/productos")
+@RequestMapping("/api/v1/productos")
 public class ProductoController {
 
     @Autowired

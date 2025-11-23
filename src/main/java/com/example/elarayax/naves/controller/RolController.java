@@ -18,7 +18,7 @@ import com.example.elarayax.naves.service.RolService;
 import com.example.elarayax.naves.model.Rol;
 
 @RestController
-@RequestMapping("/api/roles")
+@RequestMapping("/api/v1/roles")
 public class RolController {
 
     @Autowired

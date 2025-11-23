@@ -18,7 +18,7 @@ import com.example.elarayax.naves.model.Comprobante;
 import com.example.elarayax.naves.service.ComprobanteService;
 
 @RestController
-@RequestMapping("/api/comprobantes")
+@RequestMapping("/api/v1/comprobantes")
 public class ComprobanteController {
 
     @Autowired

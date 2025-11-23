@@ -21,7 +21,7 @@ import com.example.elarayax.naves.service.UsuarioService;
 import com.example.elarayax.naves.model.Usuario;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/v1/usuarios")
 public class UsuarioController {
     
     @Autowired

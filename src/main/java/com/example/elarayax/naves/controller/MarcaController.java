@@ -18,7 +18,7 @@ import com.example.elarayax.naves.service.MarcaService;
 import com.example.elarayax.naves.model.Marca;
 
 @RestController
-@RequestMapping("/api/marcas")
+@RequestMapping("/api/v1/marcas")
 
 public class MarcaController {
     @Autowired

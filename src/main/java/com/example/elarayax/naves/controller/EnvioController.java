@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-@RequestMapping("/api/envios")
+@RequestMapping("/api/v1/envios")
 public class EnvioController {
 
     @Autowired

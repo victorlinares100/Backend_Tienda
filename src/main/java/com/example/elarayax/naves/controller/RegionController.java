@@ -18,7 +18,7 @@ import com.example.elarayax.naves.service.RegionService;
 import com.example.elarayax.naves.model.Region;
 
 @RestController
-@RequestMapping("/api/regiones")
+@RequestMapping("/api/v1/regiones")
 public class RegionController {
 
     @Autowired

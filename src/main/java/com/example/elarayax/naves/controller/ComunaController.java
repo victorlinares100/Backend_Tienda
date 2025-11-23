@@ -17,7 +17,7 @@ import com.example.elarayax.naves.service.ComunaService;
 import com.example.elarayax.naves.model.Comuna;
 
 @RestController
-@RequestMapping("/api/comunas")
+@RequestMapping("/api/v1/comunas")
 public class ComunaController {
 
     @Autowired

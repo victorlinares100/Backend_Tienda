@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-@RequestMapping("/api/detallecomprobantes")
+@RequestMapping("/api/v1/detallecomprobantes")
 public class DetalleComprobanteController {
 
     @Autowired

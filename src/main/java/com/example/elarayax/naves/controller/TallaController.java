@@ -18,7 +18,7 @@ import com.example.elarayax.naves.service.TallaService;
 import com.example.elarayax.naves.model.Talla;
 
 @RestController
-@RequestMapping("/api/tallas")
+@RequestMapping("/api/v1/tallas")
 public class TallaController {
     @Autowired
     private TallaService tallaService;

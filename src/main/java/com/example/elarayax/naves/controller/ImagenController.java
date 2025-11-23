@@ -18,7 +18,7 @@ import com.example.elarayax.naves.service.ImagenService;
 import com.example.elarayax.naves.model.Imagen;
 
 @RestController
-@RequestMapping("/api/imagenes")
+@RequestMapping("/api/v1/imagenes")
 public class ImagenController {
 
     private final ImagenService imagenService;
