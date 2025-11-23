@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.elarayax.naves.dto.CarritoRequest;
 import com.example.elarayax.naves.model.Comprobante;
 import com.example.elarayax.naves.service.ComprobanteService;
 
@@ -40,11 +41,18 @@ public class ComprobanteController {
         return ResponseEntity.ok(comprobante);
     }
 
-    @PostMapping
-    public ResponseEntity<Comprobante> createComprobante(@RequestBody Comprobante comprobante) {
-        comprobante.setId(null);
-        Comprobante created = comprobanteService.save(comprobante);
-        return ResponseEntity.status(201).body(created);
+    @PostMapping("/carrito")
+    public ResponseEntity<?> crearDesdeCarrito(@RequestBody CarritoRequest request) {
+        try {
+            Comprobante comprobante = comprobanteService.crearComprobanteDesdeCarrito(request);
+            return ResponseEntity.status(201).body(comprobante);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error interno: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -52,5 +60,4 @@ public class ComprobanteController {
         comprobanteService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }
