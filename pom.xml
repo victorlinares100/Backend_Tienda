@@ -63,6 +63,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -79,12 +85,6 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
-
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-boot-starter</artifactId>
-				<version>3.0.0</version>
-			</dependency>
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
