@@ -29,6 +29,25 @@ public class EstadoService {
     @SuppressWarnings("null")
     public Estado save(Estado estado) {
         return estadoRepository.save(estado);
-    } 
+    }
+    
+      public void delete(Long id) {
+        estadoRepository.deleteById(id);
+    }
+     public void deleteById(Long id) {
+        estadoRepository.deleteById(id);
+    }
 
+    public Estado partialUpdate(Estado estado){
+        Estado existingEstado = estadoRepository.findById(estado.getId()).orElse(null);
+        if (existingEstado != null) {
+            if (estado.getNombreEstado() != null) {
+                existingEstado.setNombreEstado(estado.getNombreEstado());
+            }
+
+            return estadoRepository.save(existingEstado);
+        }
+        return null;
+    }
 }
+

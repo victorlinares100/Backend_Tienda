@@ -29,5 +29,26 @@ public class CategoriaService {
     @SuppressWarnings("null")
     public Categoria save(Categoria categoria) {
         return categoriaRepository.save(categoria);
-    } 
+    }
+    public void delete(Long id) {
+        categoriaRepository.deleteById(id);
+    }
+     public void deleteById(Long id) {
+        categoriaRepository.deleteById(id);
+    }
+
+    public Categoria partialUpdate(Categoria categoria){
+        Categoria existingCategoria = categoriaRepository.findById(categoria.getId()).orElse(null);
+        if (existingCategoria != null) {
+            if (categoria.getTipoCategoria() != null) {
+                existingCategoria.setTipoCategoria(categoria.getTipoCategoria());
+
+            }
+
+            return categoriaRepository.save(existingCategoria);
+        }
+        return null;
+    }
 }
+
+

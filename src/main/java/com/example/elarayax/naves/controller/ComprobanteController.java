@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +46,16 @@ public class ComprobanteController {
         comprobante.setId(null);
         Comprobante created = comprobanteService.save(comprobante);
         return ResponseEntity.status(201).body(created);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Comprobante> updateParcialComprobante(@PathVariable Long id, @RequestBody Comprobante comprobante) {
+        comprobante.setId(id);
+        Comprobante updatedComprobante = comprobanteService.partialUpdate(comprobante);
+        if (updatedComprobante == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedComprobante);
     }
 
     @DeleteMapping("/{id}")

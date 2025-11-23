@@ -29,5 +29,21 @@ public class TallaService {
     public Talla save(Talla talla) {
         return tallaRepository.save(talla);
     } 
+    public void deleteById(Long id) {
+        tallaRepository.deleteById(id);
+    }
+
+    public Talla partialUpdate(Talla talla){
+        Talla existingTalla = tallaRepository.findById(talla.getId()).orElse(null);
+        if (existingTalla != null) {
+            if (talla.getTipoTalla() != null) {
+                existingTalla.setTipoTalla(talla.getTipoTalla());
+            }
+
+
+            return tallaRepository.save(existingTalla);
+        }
+        return null;
+    }
 
 }

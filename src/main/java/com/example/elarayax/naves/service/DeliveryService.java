@@ -29,4 +29,25 @@ public class DeliveryService {
     public void delete(Long id) {
         deliveryRepository.deleteById(id);
     }
+
+    public void deleteById(Long id) {
+        deliveryRepository.deleteById(id);
+    }
+
+    public Delivery partialUpdate(Delivery delivery){
+        Delivery existingDelivery = deliveryRepository.findById(delivery.getId()).orElse(null);
+        if (existingDelivery != null) {
+            if (delivery.getFechaEntregaEstimada() != null) {
+                existingDelivery.setFechaEntregaEstimada(delivery.getFechaEntregaEstimada());
+            }
+                if (delivery.getEstado() != null) {
+                existingDelivery.setEstado(delivery.getEstado());
+            }
+            if (delivery.getEnvio() != null) {
+                existingDelivery.setEnvio(delivery.getEnvio());
+            }
+             return deliveryRepository.save(existingDelivery);
+        }
+        return null;
+    }
 }

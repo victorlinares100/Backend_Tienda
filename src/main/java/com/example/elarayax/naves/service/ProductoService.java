@@ -93,4 +93,34 @@ public class ProductoService {
             p.setImagen(img);
         }
     }
+     public Producto partialUpdate(Producto producto){
+        Producto existingProducto = productoRepository.findById(producto.getId()).orElse(null);
+        if (existingProducto != null) {
+            if (producto.getNombreProducto() != null) {
+                existingProducto.setNombreProducto(producto.getNombreProducto());
+            }
+                if (producto.getPrecioProducto() != null) {
+                existingProducto.setPrecioProducto(producto.getPrecioProducto());
+            }
+            if (producto.getStock() != null) {
+                existingProducto.setStock(producto.getStock());
+            }
+        
+            if(producto.getMarca() != null) {
+                existingProducto.setMarca(producto.getMarca());
+            }
+
+            if(producto.getTalla() != null) {
+                existingProducto.setTalla(producto.getTalla());
+            }
+
+            if(producto.getImagen() != null) {
+                existingProducto.setImagen(producto.getImagen());
+            }
+
+            return productoRepository.save(existingProducto);
+        }
+        return null;
+    }
 }
+
