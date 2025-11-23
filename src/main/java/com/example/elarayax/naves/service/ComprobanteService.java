@@ -56,7 +56,7 @@ public class ComprobanteService {
    
     public Comprobante crearComprobanteDesdeCarrito(CarritoRequest req) {
 
-        Usuario usuario = usuarioService.findById(req.getUserId());
+        Usuario usuario = usuarioService.findById(req.getUsuarioId());
         if (usuario == null) {
             throw new RuntimeException("Usuario no encontrado");
         }

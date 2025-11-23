@@ -24,22 +24,17 @@ public class UsuarioService {
 
 
     public List<Usuario> findAll() {
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        return usuarios;
+        return usuarioRepository.findAll();
     }
 
     public Usuario findById(Long id) {
-        Usuario usuario = usuarioRepository.findById(id).orElse(null);
-        if (usuario != null) {
-            usuario.setContrasena(null);
-        }
-        return usuario;
+        return usuarioRepository.findById(id).orElse(null);
     }
 
     public Usuario login(Usuario usuario) {
         Usuario foundUsuario = usuarioRepository.findByCorreo(usuario.getCorreo());
  
-        if (foundUsuario != null &&  passwordEncoder.matches(usuario.getContrasena(), foundUsuario.getContrasena())) {
+        if (foundUsuario != null && passwordEncoder.matches(usuario.getContrasena(), foundUsuario.getContrasena())) {
             return foundUsuario;
         }
 
@@ -51,8 +46,11 @@ public class UsuarioService {
     }
 
     public Usuario save(Usuario usuario) {
-        String passwordHasheada = passwordEncoder.encode(usuario.getContrasena());
-        usuario.setContrasena(passwordHasheada);
+
+        if (usuario.getContrasena() != null) {
+            usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
+        }
+
         return usuarioRepository.save(usuario);
     }
 
@@ -63,18 +61,20 @@ public class UsuarioService {
     public Usuario partialUpdate(Usuario usuario){
         Usuario existingUsuario = usuarioRepository.findById(usuario.getId()).orElse(null);
         if (existingUsuario != null) {
+
             if (usuario.getNombre() != null) {
                 existingUsuario.setNombre(usuario.getNombre());
             }
+
             if (usuario.getCorreo() != null) {
                 existingUsuario.setCorreo(usuario.getCorreo());
             }
 
-            if(usuario.getContrasena() != null) {
+            if (usuario.getContrasena() != null) {
                 existingUsuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
             }
 
-            if(usuario.getRol() != null) {
+            if (usuario.getRol() != null) {
                 existingUsuario.setRol(usuario.getRol());
             }
 
@@ -82,8 +82,5 @@ public class UsuarioService {
         }
         return null;
     }
-
-    
-
 
 }
