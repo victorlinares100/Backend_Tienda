@@ -10,6 +10,7 @@ public class ProductoDTO {
     private Long categoriaId;
     private Long marcaId;
     private Long tallaId;
-    private Long imagenId;
+    private String imagenUrl; 
 }
+
 

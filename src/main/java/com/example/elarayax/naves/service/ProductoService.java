@@ -50,14 +50,12 @@ public class ProductoService {
         productoRepository.deleteById(id);
     }
 
-    // Crear desde DTO con IDs
     public Producto createFromDTO(ProductoDTO dto) {
         Producto p = new Producto();
         applyDTOtoProducto(p, dto);
         return productoRepository.save(p);
     }
 
-    // Actualizar desde DTO con IDs
     public Producto updateFromDTO(Long id, ProductoDTO dto) {
         Producto p = productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
@@ -70,7 +68,6 @@ public class ProductoService {
         if (dto.getPrecioProducto() != null) p.setPrecioProducto(dto.getPrecioProducto());
         if (dto.getStock() != null) p.setStock(dto.getStock());
 
-        // Asignar entidades existentes por ID
         if (dto.getCategoriaId() != null) {
             Categoria c = categoriaRepository.findById(dto.getCategoriaId())
                     .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
@@ -89,9 +86,10 @@ public class ProductoService {
             p.setTalla(t);
         }
 
-        if (dto.getImagenId() != null) {
-            Imagen img = imagenRepository.findById(dto.getImagenId())
-                    .orElseThrow(() -> new RuntimeException("Imagen no encontrada"));
+        if (dto.getImagenUrl() != null && !dto.getImagenUrl().isEmpty()) {
+            Imagen img = new Imagen();
+            img.setUrl(dto.getImagenUrl()); 
+            imagenRepository.save(img);
             p.setImagen(img);
         }
     }
