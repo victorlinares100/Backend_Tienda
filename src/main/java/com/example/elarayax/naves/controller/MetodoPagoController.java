@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,6 +60,17 @@ public class MetodoPagoController {
         MetodoPago updated = metodoPagoService.save(metodoPago);
         return ResponseEntity.ok(updated);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<MetodoPago> updateParcialMetodoPago(@PathVariable Long id, @RequestBody MetodoPago metodoPago) {
+        metodoPago.setId(id);
+        MetodoPago updatedMetodoPago = metodoPagoService.partialUpdate(metodoPago);
+        if (updatedMetodoPago == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedMetodoPago);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {

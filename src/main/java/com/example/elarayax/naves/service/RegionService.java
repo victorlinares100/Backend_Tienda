@@ -28,6 +28,23 @@ public class RegionService {
     @SuppressWarnings("null")
     public Region save(Region region) {
         return regionRepository.save(region);
-    } 
+    }
+
+     public void deleteById(Long id) {
+        regionRepository.deleteById(id);
+    }
+
+    public Region partialUpdate(Region region){
+        Region existingRegion = regionRepository.findById(region.getId()).orElse(null);
+        if (existingRegion != null) {
+            if (region.getNombre() != null) {
+                existingRegion.setNombre(region.getNombre());
+            }
+
+
+            return regionRepository.save(existingRegion);
+        }
+        return null;
+    }
 
 }

@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,5 +47,29 @@ public class TallaController {
         return ResponseEntity.status(201).body(createdTalla);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Talla> updateTalla(@PathVariable Long id, @RequestBody Talla talla) {
+        talla.setId(id);
+        Talla updatedTalla = tallaService.save(talla);
+        if (updatedTalla == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedTalla);
+    }
 
+        @PatchMapping("/{id}")
+    public ResponseEntity<Talla> updateParcialTalla(@PathVariable Long id, @RequestBody Talla talla) {
+        talla.setId(id);
+        Talla updatedTalla = tallaService.partialUpdate(talla);
+        if (updatedTalla == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedTalla);
+    }
+
+        @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
+        tallaService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

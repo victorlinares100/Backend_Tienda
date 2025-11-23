@@ -29,4 +29,23 @@ public class MetodoPagoService {
     public void delete(Long id) {
         metodoPagoRepository.deleteById(id);
     }
+    public MetodoPago partialUpdate(MetodoPago metodoPago){
+        MetodoPago existingMetodoPago = metodoPagoRepository.findById(metodoPago.getId()).orElse(null);
+        if (existingMetodoPago != null) {
+            if (metodoPago.getNombreMetodo() != null) {
+                existingMetodoPago.setNombreMetodo(metodoPago.getNombreMetodo());
+            }
+                if (metodoPago.getDescripcion() != null) {
+                existingMetodoPago.setDescripcion(metodoPago.getDescripcion());
+            }
+            if (metodoPago.getComision() != null) {
+                existingMetodoPago.setComision(metodoPago.getComision());
+            }
+
+            return metodoPagoRepository.save(existingMetodoPago);
+        }
+        return null;
+    }
 }
+
+

@@ -30,4 +30,37 @@ public class EnvioService {
 	public void delete(Long id) {
 		envioRepository.deleteById(id);
 	}
+
+	public Envio partialUpdate(Envio envio){
+        Envio existingEnvio = envioRepository.findById(envio.getId()).orElse(null);
+        if (existingEnvio != null) {
+            if (envio.getDireccionDestino() != null) {
+                existingEnvio.setDireccionDestino(envio.getDireccionDestino());
+            }
+                if (envio.getFechaSalida() != null) {
+                existingEnvio.setFechaSalida(envio.getFechaSalida());
+            }
+            if (envio.getFechaEntrega() != null) {
+                existingEnvio.setFechaEntrega(envio.getFechaEntrega());
+            }
+        
+            if(envio.getUsuario() != null) {
+                existingEnvio.setUsuario(envio.getUsuario());
+            }
+
+            if(envio.getComprobante() != null) {
+                existingEnvio.setComprobante(envio.getComprobante());
+            }
+
+            if(envio.getEstado() != null) {
+                existingEnvio.setEstado(envio.getEstado());
+            }
+
+			if(envio.getDelivery() != null) {
+                existingEnvio.setDelivery(envio.getDelivery());
+            }
+            return envioRepository.save(existingEnvio);
+        }
+        return null;
+    }
 }

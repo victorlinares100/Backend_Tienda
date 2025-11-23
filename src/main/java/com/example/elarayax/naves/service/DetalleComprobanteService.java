@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.elarayax.naves.repository.DetalleComprobanteRepository;
 import com.example.elarayax.naves.model.DetalleComprobante;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -32,6 +31,28 @@ public class DetalleComprobanteService {
     public void delete(Long id) {
         detalleComprobanteRepository.deleteById(id);
     }
+
+    public void deleteById(Long id) {
+        detalleComprobanteRepository.deleteById(id);
+    }
+
+    public DetalleComprobante partialUpdate(DetalleComprobante detalleComprobante){
+        DetalleComprobante existingDetalleComprobante = detalleComprobanteRepository.findById(detalleComprobante.getId()).orElse(null);
+        if (existingDetalleComprobante != null) {
+            if (detalleComprobante.getCantidad() != null) {
+                existingDetalleComprobante.setCantidad(detalleComprobante.getCantidad());
+            }
+                if (detalleComprobante.getComprobante() != null) {
+                existingDetalleComprobante.setComprobante(detalleComprobante.getComprobante());
+            }
+            if (detalleComprobante.getProducto() != null) {
+                existingDetalleComprobante.setProducto(detalleComprobante.getProducto());
+            }
+             return detalleComprobanteRepository.save(existingDetalleComprobante);
+        }
+        return null;
+    }
+
 
     public List<DetalleComprobante> findByComprobanteId(Long comprobanteId) {
         try {

@@ -30,4 +30,20 @@ public class RolService {
     public Rol save(Rol rol) {
         return rolRepository.save(rol);
     } 
+     public void deleteById(Long id) {
+        rolRepository.deleteById(id);
+    }
+
+    public Rol partialUpdate(Rol rol){
+        Rol existingRol = rolRepository.findById(rol.getId()).orElse(null);
+        if (existingRol != null) {
+            if (rol.getNombre() != null) {
+                existingRol.setNombre(rol.getNombre());
+            }
+
+
+            return rolRepository.save(existingRol);
+        }
+        return null;
+    }
 }

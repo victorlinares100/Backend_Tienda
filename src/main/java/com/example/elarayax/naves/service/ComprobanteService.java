@@ -53,7 +53,7 @@ public class ComprobanteService {
     public void delete(Long id) {
         comprobanteRepository.deleteById(id);
     }
-
+   
     public Comprobante crearComprobanteDesdeCarrito(CarritoRequest req) {
 
         Usuario usuario = usuarioService.findById(req.getUserId());
@@ -103,5 +103,35 @@ public class ComprobanteService {
 
         comprobante.setTotalCompra(total);
         return comprobanteRepository.save(comprobante);
-    }
+    } // Fin del método local (HEAD)
+
+    public Comprobante partialUpdate(Comprobante comprobante){
+        Comprobante existingComprobante = comprobanteRepository.findById(comprobante.getId()).orElse(null);
+        if (existingComprobante != null) {
+            if (comprobante.getFechaOrden() != null) {
+                existingComprobante.setFechaOrden(comprobante.getFechaOrden());
+            }
+                if (comprobante.getTotalCompra() != null) {
+                existingComprobante.setTotalCompra(comprobante.getTotalCompra());
+            }
+            if (comprobante.getUsuario() != null) {
+                existingComprobante.setUsuario(comprobante.getUsuario());
+            }
+        
+            if(comprobante.getMetodoPago() != null) {
+                existingComprobante.setMetodoPago(comprobante.getMetodoPago());
+            }
+
+            if(comprobante.getEstado() != null) {
+                existingComprobante.setEstado(comprobante.getEstado());
+            }
+
+            if(comprobante.getEnvio() != null) {
+                existingComprobante.setEnvio(comprobante.getEnvio());
+            }
+
+            return comprobanteRepository.save(existingComprobante);
+        }
+        return null;
+    } 
 }
