@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import java.util.HashMap;
+import java.util.Map;
+import com.example.elarayax.naves.security.JwtUtil;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -21,6 +24,9 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @PostMapping("/registro")
     public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
 
@@ -28,13 +34,13 @@ public class AuthController {
         if (usuarioRepository.existsByCorreo(usuario.getCorreo().trim())) {
             return ResponseEntity.badRequest().body("El correo ya está en uso.");
         }
-        //Esto encripta la contraseña antes de guardarla
+        // Esto encripta la contraseña antes de guardarla
         usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
         // Asignar el rol "Cliente" al cualquier nuevo usuario por default
         usuario.setRol("Cliente");
         // Asegurar que el correo se guarde sin espacios
         usuario.setCorreo(usuario.getCorreo().trim());
-        
+
         try {
             // Guardar el usuario en la base de datos
             usuarioRepository.save(usuario);
@@ -49,11 +55,18 @@ public class AuthController {
         Usuario usuario = usuarioRepository.findByCorreo(request.getCorreo());
 
         if (usuario == null || !passwordEncoder.matches(request.getContrasena(), usuario.getContrasena())) {
-            return ResponseEntity.status(401).body("Credenciales inválidas");    
+            return ResponseEntity.status(401).body("Credenciales inválidas");
         }
-        return ResponseEntity.ok(usuario);
+
+        // 1. Generar el token (ahora sí existe en el flujo)
+        String token = jwtUtil.generateToken(usuario.getCorreo(), usuario.getRol());
+
+        // 2. Crear la respuesta que el Frontend espera
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("usuario", usuario.getNombre());
+        response.put("rol", usuario.getRol());
+
+        return ResponseEntity.ok(response);
     }
-
-
-
 }
