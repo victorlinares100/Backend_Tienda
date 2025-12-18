@@ -31,9 +31,6 @@ public class EstadoService {
         return estadoRepository.save(estado);
     }
     
-      public void delete(Long id) {
-        estadoRepository.deleteById(id);
-    }
      public void deleteById(Long id) {
         estadoRepository.deleteById(id);
     }

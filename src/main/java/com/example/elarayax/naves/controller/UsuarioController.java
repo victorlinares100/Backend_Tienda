@@ -1,5 +1,6 @@
 package com.example.elarayax.naves.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +15,20 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.elarayax.naves.service.UsuarioService;
-
-
 import com.example.elarayax.naves.model.Usuario;
+import com.example.elarayax.naves.security.JwtUtil;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/usuarios")
 public class UsuarioController {
-    
+
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @GetMapping
     public ResponseEntity<List<Usuario>> getallUsuario() {
@@ -39,15 +42,21 @@ public class UsuarioController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Usuario usuario) {
         Usuario login = usuarioService.login(usuario);
-        
+
         if (login != null) {
-            login.setContrasena(null);
-            return ResponseEntity.ok(login);
+            String token = jwtUtil.generateToken(login.getCorreo(), login.getRol());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("nombre", login.getNombre());
+            response.put("rol", login.getRol());
+
+            return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
         }
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getUsuarioById(@PathVariable Long id) {
         Usuario usuario = usuarioService.findById(id);
@@ -90,8 +99,8 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
-    usuarioService.deleteById(id);
-    return ResponseEntity.noContent().build();
-}
-     
+        usuarioService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

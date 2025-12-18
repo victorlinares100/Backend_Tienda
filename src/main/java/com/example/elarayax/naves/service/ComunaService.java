@@ -31,9 +31,6 @@ public class ComunaService {
         return comunaRepository.save(comuna);
     }
     
-    public void delete(Long id) {
-        comunaRepository.deleteById(id);
-    }
      public void deleteById(Long id) {
         comunaRepository.deleteById(id);
     }
