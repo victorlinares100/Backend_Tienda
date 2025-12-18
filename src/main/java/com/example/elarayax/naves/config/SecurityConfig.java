@@ -23,14 +23,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**", "/doc/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/v1/productos/**").permitAll() // Puedes dejar GET productos público si
-                                                                             // quieres
-                        .anyRequest().authenticated() // Bloquea todo lo demás (Admin, Usuarios, etc)
-                )
+                        .requestMatchers("/api/v1/usuarios/login", "/api/v1/usuarios").permitAll()
+                        .requestMatchers("/doc/**", "/swagger-ui/**", "/v3/api-docs/**", "/api/v1/productos/**")
+                        .permitAll()
+                        .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        // Añadimos nuestro filtro antes del filtro por defecto
+        // Filtro JWT
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

@@ -22,6 +22,8 @@ import static org.mockito.Mockito.when;
 import com.example.elarayax.naves.model.Comuna;
 import com.example.elarayax.naves.repository.ComunaRepository;
 
+import com.example.elarayax.naves.service.ComunaService;
+
 class ComunaServiceTest {
     @Mock
     private ComunaRepository comunaRepository;
@@ -34,7 +36,7 @@ class ComunaServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-        @Test
+    @Test
     void findById_existing_returnsComuna() {
         Comuna comuna = new Comuna();
         comuna.setId(1L);
@@ -48,7 +50,7 @@ class ComunaServiceTest {
         assertEquals(1L, result.getId());
     }
 
-        @Test
+    @Test
     void findById_nonExisting_returnsNull() {
         when(comunaRepository.findById(99L))
                 .thenReturn(Optional.empty());
@@ -58,7 +60,7 @@ class ComunaServiceTest {
         assertNull(result);
     }
 
-        @Test
+    @Test
     void partialUpdate_existing_updatesFields() {
         Comuna existing = new Comuna();
         existing.setId(1L);
@@ -79,7 +81,7 @@ class ComunaServiceTest {
         assertEquals("Nuevo Nombre", result.getNombre());
     }
 
-        @Test
+    @Test
     void partialUpdate_nonExisting_returnsNull() {
         Comuna update = new Comuna();
         update.setId(99L);

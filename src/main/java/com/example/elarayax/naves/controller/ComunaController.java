@@ -1,4 +1,5 @@
 package com.example.elarayax.naves.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class ComunaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteComuna(@PathVariable Long id) {
-        comunaService.delete(id);
+        comunaService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

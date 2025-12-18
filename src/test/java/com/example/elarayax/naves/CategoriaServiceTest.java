@@ -21,6 +21,7 @@ import static org.mockito.Mockito.when;
 
 import com.example.elarayax.naves.model.Categoria;
 import com.example.elarayax.naves.repository.CategoriaRepository;
+import com.example.elarayax.naves.service.CategoriaService;
 
 class CategoriaServiceTest {
     @Mock
@@ -127,4 +128,3 @@ class CategoriaServiceTest {
         verify(categoriaRepository, never()).save(any());
     }
 }
-

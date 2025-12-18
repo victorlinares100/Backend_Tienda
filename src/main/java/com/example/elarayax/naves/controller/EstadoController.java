@@ -1,4 +1,5 @@
 package com.example.elarayax.naves.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import com.example.elarayax.naves.model.Estado;
 
 @RestController
 @RequestMapping("/api/v1/estados")
-
 
 public class EstadoController {
     @Autowired
@@ -70,9 +70,8 @@ public class EstadoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEstado(@PathVariable Long id) {
-        estadoService.delete(id);
+        estadoService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
 
 }

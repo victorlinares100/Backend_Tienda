@@ -31,6 +31,11 @@ import com.example.elarayax.naves.model.Producto;
 import com.example.elarayax.naves.model.Usuario;
 import com.example.elarayax.naves.repository.ComprobanteRepository;
 import com.example.elarayax.naves.repository.DetalleComprobanteRepository;
+import com.example.elarayax.naves.service.ComprobanteService;
+import com.example.elarayax.naves.service.EstadoService;
+import com.example.elarayax.naves.service.MetodoPagoService;
+import com.example.elarayax.naves.service.ProductoService;
+import com.example.elarayax.naves.service.UsuarioService;
 
 class ComprobanteServiceTest {
 
@@ -60,7 +65,7 @@ class ComprobanteServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-     @Test
+    @Test
     void crearComprobanteDesdeCarrito_ok_calculaTotalYGuarda() {
 
         // Usuario, estado y método
@@ -104,7 +109,7 @@ class ComprobanteServiceTest {
         verify(comprobanteRepository, times(2)).save(any(Comprobante.class));
     }
 
-     @Test
+    @Test
     void crearComprobanteDesdeCarrito_ok_calculaTotalYGuarda() {
 
         // Usuario, estado y método
@@ -148,7 +153,7 @@ class ComprobanteServiceTest {
         verify(comprobanteRepository, times(2)).save(any(Comprobante.class));
     }
 
-        @Test
+    @Test
     void crearComprobanteDesdeCarrito_productoNoExiste_lanzaExcepcion() {
 
         when(usuarioService.findById(1L)).thenReturn(new Usuario());
@@ -170,8 +175,7 @@ class ComprobanteServiceTest {
 
         assertThrows(
                 RuntimeException.class,
-                () -> comprobanteService.crearComprobanteDesdeCarrito(request)
-        );
+                () -> comprobanteService.crearComprobanteDesdeCarrito(request));
 
         verify(detalleRepo, never()).save(any());
     }
