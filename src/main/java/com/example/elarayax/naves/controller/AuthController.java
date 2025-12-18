@@ -6,13 +6,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.example.elarayax.naves.repository.UsuarioRepository;
 import com.example.elarayax.naves.dto.LoginRequest;
 import com.example.elarayax.naves.model.Usuario;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.example.elarayax.naves.security.JwtUtil; // Asegúrate de tener esta clase
+import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
-import com.example.elarayax.naves.security.JwtUtil;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -27,29 +24,6 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @PostMapping("/registro")
-    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
-
-        // Verifica si el correo ya está en uso, si lo está lanza un error
-        if (usuarioRepository.existsByCorreo(usuario.getCorreo().trim())) {
-            return ResponseEntity.badRequest().body("El correo ya está en uso.");
-        }
-        // Esto encripta la contraseña antes de guardarla
-        usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
-        // Asignar el rol "Cliente" al cualquier nuevo usuario por default
-        usuario.setRol("Cliente");
-        // Asegurar que el correo se guarde sin espacios
-        usuario.setCorreo(usuario.getCorreo().trim());
-
-        try {
-            // Guardar el usuario en la base de datos
-            usuarioRepository.save(usuario);
-            return ResponseEntity.ok("Usuario registrado exitosamente");
-        } catch (org.springframework.dao.DataIntegrityViolationException e) {
-            return ResponseEntity.badRequest().body("El correo ya está en uso.");
-        }
-    }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Usuario usuario = usuarioRepository.findByCorreo(request.getCorreo());
@@ -58,15 +32,31 @@ public class AuthController {
             return ResponseEntity.status(401).body("Credenciales inválidas");
         }
 
-        // 1. Generar el token (ahora sí existe en el flujo)
+        // GENERACIÓN DEL TOKEN
         String token = jwtUtil.generateToken(usuario.getCorreo(), usuario.getRol());
 
-        // 2. Crear la respuesta que el Frontend espera
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
-        response.put("usuario", usuario.getNombre());
+        response.put("nombre", usuario.getNombre()); // Usamos 'nombre' para que coincida con user.nombre
         response.put("rol", usuario.getRol());
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/registro")
+    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
+        if (usuarioRepository.existsByCorreo(usuario.getCorreo().trim())) {
+            return ResponseEntity.badRequest().body("El correo ya está en uso.");
+        }
+        usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
+        usuario.setRol("Cliente");
+        usuario.setCorreo(usuario.getCorreo().trim());
+
+        try {
+            usuarioRepository.save(usuario);
+            return ResponseEntity.ok("Usuario registrado exitosamente");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al registrar.");
+        }
     }
 }
