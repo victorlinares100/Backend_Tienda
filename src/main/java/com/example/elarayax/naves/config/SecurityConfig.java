@@ -21,27 +21,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/v1/auth/login", "/api/v1/usuarios").permitAll()
-                    .requestMatchers(
-                        "/doc/**", 
-                        "/doc.html",
-                        "/swagger-ui/**", 
-                        "/swagger-ui.html", 
-                        "/v3/api-docs/**", 
-                        "/configuration/**", 
-                        "/swagger-resources/**", 
-                        "/webjars/**"
-                    ).permitAll()           
-                    .requestMatchers("/api/v1/productos/**").permitAll()
-                    
-                    .anyRequest().authenticated())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-    // Filtro JWT
-    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/v1/auth/login", "/api/v1/usuarios").permitAll()
+                        .requestMatchers("/doc/**", "/swagger-ui/**", "/v3/api-docs/**", "/api/v1/productos/**")
+                        .permitAll()
+                        .requestMatchers("/api/v1/comprobantes/**").hasAuthority("ADMIN")
+                        .anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     return http.build();
 }
 
