@@ -9,10 +9,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // Permitir todas las rutas
-                .allowedOrigins("http://localhost:5173") // Tu puerto de React
+        registry.addMapping("/**")
+                // Permitimos localhost para tu React Y la URL de Railway para Swagger
+                .allowedOriginPatterns("http://localhost:5173", "https://*.railway.app") 
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
+
 }
