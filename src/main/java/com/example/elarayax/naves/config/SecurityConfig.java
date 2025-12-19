@@ -32,7 +32,7 @@ public class SecurityConfig {
             
             .requestMatchers("/api/v1/**").permitAll()
             
-            .anyRequest().authenticated())
+            .anyRequest().permitAll())
         
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
