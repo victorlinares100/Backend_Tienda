@@ -37,7 +37,7 @@ class EstadoServiceTest {
 
     @Test
     void partialUpdate_existing_updatesNombre() {
-
+        // Datos de prueba
         Estado existing = new Estado();
         existing.setId(1L);
         existing.setNombreEstado("Pendiente");
@@ -46,30 +46,35 @@ class EstadoServiceTest {
         update.setId(1L);
         update.setNombreEstado("Completado");
 
-        when(estadoRepository.findById(1L))
-                .thenReturn(Optional.of(existing));
-        when(estadoRepository.save(existing))
-                .thenReturn(existing);
+        // Simulación (Mocking)
+        when(estadoRepository.findById(1L)).thenReturn(Optional.of(existing));
+        when(estadoRepository.save(any(Estado.class))).thenReturn(existing);
 
+        // Ejecución
         Estado result = estadoService.partialUpdate(update);
 
+        // Verificaciones
         assertNotNull(result);
         assertEquals("Completado", result.getNombreEstado());
+        verify(estadoRepository).findById(1L);
+        verify(estadoRepository).save(existing);
     }
 
-        @Test
+    @Test
     void partialUpdate_nonExisting_returnsNull() {
-
+        // Datos de prueba
         Estado update = new Estado();
         update.setId(99L);
 
-        when(estadoRepository.findById(99L))
-                .thenReturn(Optional.empty());
+        // Simulación (Mocking)
+        when(estadoRepository.findById(99L)).thenReturn(Optional.empty());
 
+        // Ejecución
         Estado result = estadoService.partialUpdate(update);
 
+        // Verificaciones
         assertNull(result);
+        verify(estadoRepository).findById(99L);
         verify(estadoRepository, never()).save(any());
     }
-
 }

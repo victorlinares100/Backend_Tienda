@@ -1,6 +1,7 @@
 package com.example.elarayax.naves;
 
 import java.util.Optional;
+import java.time.LocalDate; // Importante para manejar fechas
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ class DeliveryServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-        @Test
+    @Test
     void findById_existing_returnsDelivery() {
         Delivery delivery = new Delivery();
         delivery.setId(1L);
@@ -49,7 +50,7 @@ class DeliveryServiceTest {
         assertEquals(1L, result.getId());
     }
 
-        @Test
+    @Test
     void findById_nonExisting_returnsNull() {
         when(deliveryRepository.findById(99L))
                 .thenReturn(Optional.empty());
@@ -59,27 +60,36 @@ class DeliveryServiceTest {
         assertNull(result);
     }
 
-        @Test
+    @Test
     void partialUpdate_existing_updatesFields() {
+        // 1. Datos iniciales
         Delivery existing = new Delivery();
         existing.setId(1L);
+        // Supongamos que la fecha original era otra
+        existing.setFechaEntregaEstimada(LocalDate.of(2024, 12, 31));
 
+        // 2. Datos para la actualización
+        LocalDate nuevaFecha = LocalDate.of(2025, 1, 1);
         Delivery update = new Delivery();
         update.setId(1L);
-        update.setFechaEntregaEstimada(null);
+        update.setFechaEntregaEstimada(nuevaFecha);
 
+        // 3. Comportamiento del Mock
         when(deliveryRepository.findById(1L))
                 .thenReturn(Optional.of(existing));
-        when(deliveryRepository.save(existing))
+        when(deliveryRepository.save(any(Delivery.class)))
                 .thenReturn(existing);
 
+        // 4. Ejecución
         Delivery result = deliveryService.partialUpdate(update);
 
+        // 5. Verificación
         assertNotNull(result);
-        assertEquals("2025-01-01", result.getFechaEntregaEstimada());
+        // Comparamos el objeto LocalDate, no un String
+        assertEquals(nuevaFecha, result.getFechaEntregaEstimada());
     }
 
-        @Test
+    @Test
     void partialUpdate_nonExisting_returnsNull() {
         Delivery update = new Delivery();
         update.setId(99L);
@@ -92,5 +102,4 @@ class DeliveryServiceTest {
         assertNull(result);
         verify(deliveryRepository, never()).save(any());
     }
-
 }
