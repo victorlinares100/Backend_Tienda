@@ -10,11 +10,14 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                // Permitimos localhost para tu React Y la URL de Railway para Swagger
-                .allowedOriginPatterns("http://localhost:5173", "https://*.railway.app") 
+                // Permitimos tu localhost Y tu dominio de Vercel
+                .allowedOriginPatterns(
+                    "http://localhost:5173",
+                    "https://full-stack2-sy9n.vercel.app",
+                    "https://*.vercel.app"
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
-
 }
