@@ -26,10 +26,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/login", "/api/v1/usuarios").permitAll()
                         .requestMatchers("/doc/**", "/swagger-ui/**", "/v3/api-docs/**", "/api/v1/productos/**")
                         .permitAll()
+                        .requestMatchers("/api/v1/comprobantes/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        // Filtro JWT
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
