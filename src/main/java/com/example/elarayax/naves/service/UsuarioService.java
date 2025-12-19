@@ -39,7 +39,7 @@ public class UsuarioService {
 
     public Usuario save(Usuario usuario) {
         if (usuario.getRol() == null || usuario.getRol().trim().isEmpty()) {
-            usuario.setRol("Cliente");
+            usuario.setRol("CLIENTE");
         }
 
         if (usuario.getContrasena() != null) {

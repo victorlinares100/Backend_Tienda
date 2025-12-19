@@ -22,19 +22,21 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-        .cors(Customizer.withDefaults()) 
-        .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/doc/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-            
-            .requestMatchers("/api/v1/comprobantes/**").hasAuthority("ADMIN")
-            
-            .requestMatchers("/api/v1/**").permitAll()
-            
-            .anyRequest().authenticated())
-        
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+    http.csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/api/v1/auth/login", "/api/v1/usuarios").permitAll()                 
+                    .requestMatchers("/doc/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()                 
+                    .requestMatchers(
+                        "/api/v1/productos/**", 
+                        "/api/v1/tallas/**", 
+                        "/api/v1/marcas/**",
+                        "/api/v1/regiones/**"
+                    ).permitAll()                
+                    .requestMatchers("/api/v1/comprobantes/**").permitAll()
+                    
+                    .anyRequest().authenticated())
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
     http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     
