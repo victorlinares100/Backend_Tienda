@@ -22,28 +22,23 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .cors(Customizer.withDefaults()) 
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/auth/login", "/api/v1/usuarios").permitAll()
-                // Rutas de Swagger y Documentación
-                .requestMatchers("/doc/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .requestMatchers(
-                    "/api/v1/productos/**", 
-                    "/api/v1/tallas/**", 
-                    "/api/v1/marcas/**",
-                    "/api/v1/regiones/**",
-                    "/api/v1/roles/**" 
-                ).permitAll()
-
-                .requestMatchers("/api/v1/comprobantes/**").hasAuthority("ADMIN")
-                .anyRequest().authenticated())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    http
+        .cors(Customizer.withDefaults()) 
+        .csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/doc/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+            
+            .requestMatchers("/api/v1/comprobantes/**").hasAuthority("ADMIN")
+            
+            .requestMatchers("/api/v1/**").permitAll()
+            
+            .anyRequest().authenticated())
         
-        return http.build();
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    
+    return http.build();
     }
 
     @Bean
