@@ -20,6 +20,7 @@ import static org.mockito.Mockito.when;
 
 import com.example.elarayax.naves.model.Estado;
 import com.example.elarayax.naves.repository.EstadoRepository;
+import com.example.elarayax.naves.service.EstadoService;
 
 class EstadoServiceTest {
 

@@ -30,6 +30,8 @@ import com.example.elarayax.naves.repository.ProductoRepository;
 import com.example.elarayax.naves.repository.TallaRepository;
 import com.example.elarayax.naves.repository.ImagenRepository;
 
+import com.example.elarayax.naves.service.ProductoService;
+
 class ProductoServiceTest {
 
     @Mock

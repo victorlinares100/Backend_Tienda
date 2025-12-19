@@ -21,6 +21,7 @@ import static org.mockito.Mockito.never;
 
 import com.example.elarayax.naves.model.Imagen;
 import com.example.elarayax.naves.repository.ImagenRepository;
+import com.example.elarayax.naves.service.ImagenService;
 
 class ImagenServiceTest {
 

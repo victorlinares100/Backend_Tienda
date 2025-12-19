@@ -20,6 +20,7 @@ import static org.mockito.Mockito.when;
 
 import com.example.elarayax.naves.model.Talla;
 import com.example.elarayax.naves.repository.TallaRepository;
+import com.example.elarayax.naves.service.TallaService;
 
 class TallaServiceTest {
 

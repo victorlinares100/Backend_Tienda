@@ -21,8 +21,9 @@ import static org.mockito.Mockito.when;
 
 import com.example.elarayax.naves.model.Comprobante;
 import com.example.elarayax.naves.model.DetalleComprobante;
-import com.example.elarayax.naves.model.Producto;
+
 import com.example.elarayax.naves.repository.DetalleComprobanteRepository;
+import com.example.elarayax.naves.service.DetalleComprobanteService;
 
 class DetalleComprobanteServiceTest {
 

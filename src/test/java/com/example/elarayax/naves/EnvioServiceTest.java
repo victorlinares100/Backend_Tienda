@@ -21,6 +21,7 @@ import static org.mockito.Mockito.when;
 
 import com.example.elarayax.naves.model.Envio;
 import com.example.elarayax.naves.repository.EnvioRepository;
+import com.example.elarayax.naves.service.EnvioService;
 
 class EnvioServiceTest {
 

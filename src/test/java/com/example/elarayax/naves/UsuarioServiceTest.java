@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.elarayax.naves.model.Usuario;
 import com.example.elarayax.naves.repository.UsuarioRepository;
+import com.example.elarayax.naves.service.UsuarioService;
 
 class UsuarioServiceTest {
 

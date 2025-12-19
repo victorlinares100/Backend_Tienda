@@ -20,6 +20,7 @@ import static org.mockito.Mockito.when;
 
 import com.example.elarayax.naves.model.Delivery;
 import com.example.elarayax.naves.repository.DeliveryRepository;
+import com.example.elarayax.naves.service.DeliveryService;
 
 class DeliveryServiceTest {
 
@@ -65,7 +66,7 @@ class DeliveryServiceTest {
 
         Delivery update = new Delivery();
         update.setId(1L);
-        update.setFechaEntregaEstimada("2025-01-01");
+        update.setFechaEntregaEstimada(null);
 
         when(deliveryRepository.findById(1L))
                 .thenReturn(Optional.of(existing));
