@@ -14,8 +14,8 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         // Configuramos el servidor de Railway para que Swagger sepa dónde disparar
         Server railwayServer = new Server();
-        railwayServer.setUrl("https://backendtienda-production-fcfd.up.railway.app");
-        railwayServer.setDescription("Servidor de Producción Railway");
+        railwayServer.setUrl("https://backendtienda-production-2689.up.railway.app");
+        railwayServer.setDescription("Servidor de Producción Railway (API)");
 
         // Configuramos el servidor local para tus pruebas en PC
         Server localServer = new Server();
@@ -23,11 +23,10 @@ public class SwaggerConfig {
         localServer.setDescription("Servidor Local");
 
         return new OpenAPI()
-            .info(new Info()
-                .title("API TIENDA ONLINE AUREA")
-                .version("0.5.1")
-                .description("API TIENDA ONLINE RESTFUL con Spring Boot AUREA")
-            )
-            .servers(List.of(railwayServer, localServer)); // Importante: añade ambos aquí
+                .info(new Info()
+                        .title("API TIENDA ONLINE AUREA")
+                        .version("0.5.1")
+                        .description("API TIENDA ONLINE RESTFUL con Spring Boot AUREA"))
+                .servers(List.of(railwayServer, localServer)); // Importante: añade ambos aquí
     }
 }

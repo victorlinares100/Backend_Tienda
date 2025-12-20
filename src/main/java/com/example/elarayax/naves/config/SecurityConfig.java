@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.example.elarayax.naves.security.JwtRequestFilter;
 import org.springframework.security.config.Customizer;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.CorsConfiguration;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -22,25 +26,41 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                // 1. IMPORTANTE: Activa la configuración de CORS de Spring Security
+                .cors(Customizer.withDefaults())
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/v1/auth/login", "/api/v1/usuarios").permitAll()
+                        .requestMatchers("/doc/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/v1/productos/**", "/api/v1/tallas/**", "/api/v1/marcas/**",
+                                "/api/v1/regiones/**")
+                        .permitAll()
+                        .requestMatchers("/api/v1/comprobantes/**").permitAll()
+                        .anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-    http.csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/v1/auth/login", "/api/v1/usuarios").permitAll()                 
-                    .requestMatchers("/doc/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()                 
-                    .requestMatchers(
-                        "/api/v1/productos/**", 
-                        "/api/v1/tallas/**", 
-                        "/api/v1/marcas/**",
-                        "/api/v1/regiones/**"
-                    ).permitAll()                
-                    .requestMatchers("/api/v1/comprobantes/**").permitAll()
-                    
-                    .anyRequest().authenticated())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
-    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-    
-    return http.build();
+        return http.build();
+    }
+
+    // 2. Aquí defines las URLs que tienen permiso de entrar
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:5173",
+                "https://fullstack2-production-a0da.up.railway.app"));
+
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean
